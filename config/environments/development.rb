@@ -27,4 +27,6 @@ Trackr::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  #config.omniauth :facebook, "284907078211987", "APP_SECRET"
 end

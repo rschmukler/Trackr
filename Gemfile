@@ -21,6 +21,7 @@ group :production do
 end
 
 gem 'devise'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'guard-livereload'
