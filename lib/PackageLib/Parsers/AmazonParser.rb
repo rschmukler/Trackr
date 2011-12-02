@@ -74,12 +74,12 @@ module PackageLib
 
     def get_items(text)
       items =[]
-      item_strs = text.scan(/[0-9]+\n>* *\"[0-z .\-@#\/\,+]+\"|[0-9]+\"[0-z .\-@#\/\,]*\"/)
-      item_strs.map!{|item_str| item_str.gsub!(/\n>* */, " ")}
+      item_strs = text.scan(/[0-9]+\n.*\"[0-z .\-@#\/\,+]+|[0-9]+\"[0-z .\-@#\/\,]*/)
+      item_strs.map!{|item_str| item_str.gsub!(/\n.*\"/, " \"")}
       puts item_strs
       item_strs.each do |item|
         item = item.split(/ \"/) #Matches the first item with package
-        items << {:name => item.last[0..-2], :count => item.first}
+        items << {:name => item.last, :count => item.first}
       end
      items
     end
@@ -92,6 +92,7 @@ module PackageLib
         return :usps
       end
       if(@text =~ /FedEx/)
+        puts :fedex
         return :fedex
       end
     end
