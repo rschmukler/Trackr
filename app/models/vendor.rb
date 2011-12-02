@@ -1,5 +1,5 @@
 class Vendor
-  @@vendors = ["Amazon", "Microsft Store"]
+  @@vendors = ["Amazon", "Microsft Store", "Zappos"]
 
   class << self
     def string_for_id(id)
