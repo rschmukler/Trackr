@@ -16,7 +16,7 @@ module PackageLib
       end
     end
     
-    def get_package_carrier
+    def get_tracking_number
       case @vendor
       when 'UPS'
         @tracking_number = @text.scan(/1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\\d\\d\\d ?\\d\\d\\d\\d ?\\d\\d\\d/)
@@ -38,6 +38,11 @@ module PackageLib
         return true
       end
       return false
+    end
+    
+    def get_estimated
+      return @text.scan(/(Janurary|Feburary|March|April|May|June|July|August|September|October|November|December)\s([0-9][0-9]|[0-9]), [0-9]{4}/)
+      
     end
   end
 end
