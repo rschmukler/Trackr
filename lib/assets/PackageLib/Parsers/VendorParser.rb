@@ -15,7 +15,7 @@ module PackageLib
         @package.carrier = self.get_package_carrier
       end
       @package.items = self.get_items
-      @package.order_number = self.get_order_number      
+      @package.order_number = self.get_order_number 
       @package.get_estimated = self.get_estimated
     end
   end
