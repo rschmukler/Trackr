@@ -19,8 +19,10 @@ end
 group :production do
   gem 'pg'
 end
-
+gem 'nokogiri'
+gem 'mechanize'
 gem 'devise'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'guard-livereload'

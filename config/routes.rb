@@ -1,5 +1,12 @@
 Trackr::Application.routes.draw do
 
+  resources :packages
+
+  devise_for :users, :controllers => {:omniauth_callbacks => 'users/omniauth_callbacks'} do
+    root :to => 'packages#index'
+  end
+  get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+
   root :to => 'site#index'
 
   resources :emails

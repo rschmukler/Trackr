@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201233850) do
+ActiveRecord::Schema.define(:version => 20111202132148) do
+
+  create_table "email_addresses", :force => true do |t|
+    t.string   "address"
+    t.integer  "user_id"
+    t.boolean  "confirmed"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "emails", :force => true do |t|
     t.string   "from_text"
@@ -20,5 +29,55 @@ ActiveRecord::Schema.define(:version => 20111201233850) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "items", :force => true do |t|
+    t.integer  "package_id"
+    t.integer  "count"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.date     "order_date"
+    t.string   "order_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "vendor_id"
+  end
+
+  create_table "packages", :force => true do |t|
+    t.date     "ship_date"
+    t.integer  "user_id"
+    t.integer  "vendor_id"
+    t.integer  "carrier_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+    t.string   "tracking_number"
+    t.date     "delivered_at"
+    t.date     "estimated_delivery_date"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

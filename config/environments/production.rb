@@ -57,4 +57,7 @@ Trackr::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  #config.omniauth :facebook, "284907078211987", "APP_SECRET",
+  #    {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}} 
 end
