@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202055033) do
+ActiveRecord::Schema.define(:version => 20111202060304) do
 
   create_table "email_addresses", :force => true do |t|
     t.string   "address"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20111202055033) do
     t.string   "from_text"
     t.text     "body_text"
     t.string   "subject_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.integer  "package_id"
+    t.integer  "count"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
