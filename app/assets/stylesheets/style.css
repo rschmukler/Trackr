@@ -120,6 +120,7 @@ a.settings { float: right; }
 #add-package-modal label { margin-left: 5px; }
 
 form p { margin: 10px 0; }
+form input { max-width: 100%; }
 
 .full-info {
  padding: 20px;
