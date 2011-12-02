@@ -19,7 +19,7 @@ module TrackingLib
         puts row.search(".td-status > p").text();
         @events << {
           :status => row.search(".td-status > p").text(),
-          :date => Date.strptime(row.search(".td-status > p").text(), '%h %d, %Y,')
+          #:date => Date.strptime(row.search(".td-status > p").text(), '%h %d, %Y,')
         }
      
       end
