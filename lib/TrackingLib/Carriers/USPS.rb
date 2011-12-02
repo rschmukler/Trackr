@@ -15,6 +15,7 @@ module TrackingLib
       results = agent.submit(tracking_form)
       results.search("#tc-hits tbody tr").each do |row|
         array = row.text().force_encoding('ASCII-8BIT').gsub(/\xC2\xA0/, " ").gsub(/\r|\n|\t/," ").gsub(/#{tracking_number}|Result \d|Package Services/, '').strip().split(/   +/)
+        break if array.count < 3
         location = array[2].split(/ /).map{|text| text.capitalize}
         @events << {
           :status => array[0],
