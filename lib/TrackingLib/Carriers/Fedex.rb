@@ -5,7 +5,7 @@ module TrackingLib
     end
 
     def track(tracking_number)
-      tracking_number = "874226648206"
+      #tracking_number = "874226648206"
       @tracking_number = tracking_number
       @package = Package.where(:tracking_number => @tracking_number).first
       @events = []
@@ -68,7 +68,8 @@ module TrackingLib
     
     private
     def get_date(date_str)
-      DateTime.strptime(date_str, '%h %d,%Y %I:%M %p')
+      puts date_str
+      DateTime.strptime(date_str, '%b %d, %Y %R %p')
     end
   end
 end
