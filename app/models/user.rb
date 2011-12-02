@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :email_addresses, :conditions => ['confirmed = ?', true]
+  has_many :claimed_email_addresses, :class_name => 'EmailAddress'
   has_many :orders
   has_many :packages
 

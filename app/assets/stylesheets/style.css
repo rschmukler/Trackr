@@ -313,4 +313,4 @@ a:hover { text-decoration: underline; }
 .email-confirms .unconfirmed:before { background: darkred; }
 .email-confirms a { font-weight: bold; }
 .email-confirms .primary .remove { display: none; }
-form.email-confirms { margin-top: 15px; }
+.add-email-confirms { margin-top: 15px; }

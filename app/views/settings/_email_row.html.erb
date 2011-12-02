@@ -1,1 +1,1 @@
-<li class="<%= email.confirmed ? "confirmed" : "unconfirmed" %><%= ' primary' if email.primary? %>"><%= email.address %> <a class="remove" href="#">Remove</a></li>
+<li class="<%= email.confirmed ? "confirmed" : "unconfirmed" %><%= ' primary' if email.primary? %>" data-id="<%= email.id %>"><%= email.address %> <%= link_to "Remove", email_address_path(email), :class => 'remove', :method => :delete, :remote => true %></li>

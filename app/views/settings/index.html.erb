@@ -7,10 +7,10 @@
 
 <h2>Associated Emails</h2>
 <ul class="email-confirms">
-  <%= render :partial => 'email_row', :collection => current_user.email_addresses, :as => :email %>
+  <%= render :partial => 'email_row', :collection => current_user.claimed_email_addresses, :as => :email %>
 </ul>
 
-<%= form_for @email_address, :class => "email-confirms" do |f| -%>
+<%= form_for @email_address, :class => "add-email-confirm", :remote => true do |f| -%>
   <p><%= f.text_field :address %>
   <%= f.submit "Add", :disable_with => 'Adding...' %></p>
 <% end -%>
