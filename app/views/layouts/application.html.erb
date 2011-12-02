@@ -28,13 +28,6 @@
         });
 	    });
 	    $(".status-pending").removeClass("ajax");
-	    $("#filters li a").click(function() {
-	      $(".down").removeClass("down");
-	      $(this).addClass("down");
-	      $courier = $(this).attr("class");
-	      $(".entry").slideUp();
-	      $(".entry."+$courier).slideDown();
-	    });
 	  });
 	</script>
 </head>
