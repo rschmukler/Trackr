@@ -11,12 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202022944) do
+ActiveRecord::Schema.define(:version => 20111202055033) do
+
+  create_table "email_addresses", :force => true do |t|
+    t.string   "address"
+    t.integer  "user_id"
+    t.boolean  "confirmed"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "emails", :force => true do |t|
     t.string   "from_text"
     t.text     "body_text"
     t.string   "subject_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.date     "order_date"
+    t.string   "order_number"
+    t.integer  "user_id"
+    t.string   "vendor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packages", :force => true do |t|
+    t.date     "ship_date"
+    t.integer  "user_id"
+    t.integer  "vendor_id"
+    t.integer  "carrier_id"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
