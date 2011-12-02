@@ -5,15 +5,34 @@ module PackageLib
   class Microsoft < VendorParser
     
     def initialize(email)
-      @vendor = 'Amazon'
+      @vendor = 'Microsoft Store'
       super(email)
     end
     
     def is_updating_an_order?
-      if(@text =~ /being shipped/)
+      if(@text =~ /have shipped/)
         return true
       end
       return false
+    end
+    
+    def generate_orders
+      order_numbers = get_order_numbers
+      order_partial = @email.body_text.split(/Your Order and Billing Information:/)[1..-1]
+      i = 0
+      order_numbers.each do |on|
+        email_address = @email.from_text.scan(/<[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+>/).first[1..-2]
+        puts email_address.class
+        @user = User.find_by_email_possesion(email_address)
+        if @user
+          order = Order.new(:order_date => @email.created_at, :vendor_id => Vendor.id_for_string(@vendor), :order_number => on, :user_id => @user.id)
+          if not order.save
+            #TODO: Toss an email to the user notifying them something went wrong.
+          end
+          generate_package_for_order_text(order,order_partial[i])
+          i = i + 1 #increment order partial 
+        end
+      end
     end
     
     def generate_package_for_order_text(order,text)
@@ -55,24 +74,24 @@ module PackageLib
 
     def get_items(text)
       items =[]
-      item_strs = text.scan(/[0-9]+\n>* *\"[0-z .\-@#\/\,+]+\"|[0-9]+\"[0-z .\-@#\/\,]*\"/)
-      item_strs.map!{|item_str| item_str.gsub!(/\n>* */, " ")}
-      puts item_strs
-      item_strs.each do |item|
-        item = item.split(/ \"/) #Matches the first item with package
-        items << {:name => item.last[0..-2], :count => item.first}
+      item_strs = text.scan(/Product Name: .*\n/)
+      item_qty_strs = text.scan(/Quantity Ordered: .*\n/)
+      item_qty_strs.map!{|item_qty_strs| item_qty_strs[18..-1]}
+      item_strs.map!{|item_str| item_str[13..-1]}
+      item_strs.each do |index, item|
+        items << {:name => item, :count => item_qty_strs[index]}
       end
      items
     end
     
     def get_package_carrier
-      if(@text =~ /UPS/)
+      if(@text =~ /United Parcel Service/)
         return :ups
       end
-      if(@text =~ /USPS/)
+      if(@text =~ /United States Postal Service/)
         return :usps
       end
-      if(@text =~ /Fedex/)
+      if(@text =~ /Federal Express/)
         return :fedex
       end
     end
@@ -90,7 +109,7 @@ module PackageLib
     end
     
     def get_order_numbers
-      return @text.scan(/[0-9]{3}-[0-9]{7}-[0-9]{7}/)
+      return @text.scan(/Order Number: .{13}/)
     end
     
     def shipped?
