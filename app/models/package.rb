@@ -42,10 +42,18 @@ class Package < ActiveRecord::Base
     end
   end
 
+  def for_user_token
+    u = User.find_first_by_authentication_token(params[:token])
+    if u
+      @packages = u.packages
+      respond_with @packages
+    end
+  end
+
   private
 
   def usps_events
-    
+    events[:name] = 'TESTING'
   end
 
   def ups_events

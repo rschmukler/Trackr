@@ -1,7 +1,5 @@
-<section class="entry <%= Carrier.symbol_for_id(package.carrier_id) %> ajax">
+<section class="entry <%= Carrier.symbol_for_id(package.carrier_id) %> ajax status-<%= package.status.downcase %>">
   <div class="big-effing-button-wtf">
-    <h1><%= shorten_string package.name, 65 %></h1>
-    <p>from <span class="vendor"><%= Vendor.string_for_id(package.vendor_id) %></span> <span class="via">via</span> <span class="shipper"><%= Carrier.string_for_id(package.carrier_id )%></span> is <span class="status"><pending><%= package.status %></span>. Ship Date: <span class="date"><%= package.ship_date_string %></span>. Estimated Delivery: <span class="date"><%= package.estimated_delivery_date_string %></span></p>
     <div class="meta">
       <ul>
 	       <li class="vendor <%= Vendor.string_for_id(package.vendor_id).downcase %>"><%= Vendor.string_for_id(package.vendor_id) %></li>
@@ -9,6 +7,8 @@
 	      </ul>
 	      <% if package.pending? %><div class="pending">pending</div><% end %>
 	  </div>
+    <h1><%= shorten_string package.name, 65 %></h1>
+    <p>from <span class="vendor"><%= Vendor.string_for_id(package.vendor_id) %></span> <span class="via">via</span> <span class="shipper"><%= Carrier.string_for_id(package.carrier_id )%></span> is <span class="status"><%= package.status %></span>. Ship Date: <span class="date"><%= package.ship_date_string %></span>. Estimated Delivery: <span class="date"><%= package.estimated_delivery_date_string %></span></p>
 	</div>
 	<div class="entry-tools">
 	  <a class="remove-package" href="#">Remove</a>
