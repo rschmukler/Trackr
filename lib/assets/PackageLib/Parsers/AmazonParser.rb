@@ -36,16 +36,20 @@ module PackageLib
     end
      
     def update_orders
-      self.get_package_carrier
-      Order.where(:vendor => @vendor, :order_number => self.get_order_numbers.first).first.packages.each do |package|
-        unless package.items.find_by_name(name).nil?
-          package.carrier_id = Carrier.id_for_symbol(get_package_carrier)
-          package.tracking_number = get_tracking_number
-          package.save
+      order_no = get_order_numbers.first
+      right_order = false
+      Order.where(:vendor_id => Vendor.id_for_string(@vendor), :order_number => get_order_numbers.first).first.packages.each do |package|
+        package.items.each do |item|
+          right_order = true if not @text.scan(item.name).empty?
         end
       end
-      
-      get_tracking_number
+
+      if right_order
+        package.carrier_id = Carrier.id_for_symbol(get_package_carrier)
+        package.tracking_number = get_tracking_number
+        package.save
+      end
+
     end
     private
 
