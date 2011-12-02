@@ -1,4 +1,4 @@
-class EmailController < ApplicationController
+class EmailsController < ApplicationController
   def create
     mail = Email.new
     mail.from_text = params[:from]
