@@ -21,7 +21,7 @@ module TrackingLib
         self.update_estimated
       end
       
-      @delivered_at = page.body.scan(/deliveryDateTime = ".*";/).first[25..-3]
+      @delivered_at = page.body.scan(/deliveryDateTime = ".*";/).first[20..-3]
       if not(@delivered_at.empty?)
         @delivered_at = get_date(@delivered_at)
         self.delivered_at
@@ -34,13 +34,13 @@ module TrackingLib
         location = row["scanLocation"].split(/, /)
         @events << {
           :status => row["scanStatus"],
-          :date => get_date(row["scanDate"] + "," + row["scanTime"]),
+          :date => get_date(row["scanDate"] + " " + row["scanTime"]),
           :city => location[0],
           :state => location[1]
         }
         event = Event.new(
           :status => row["scanStatus"],
-          :date => get_date(row["scanDate"] + "," + row["scanTime"]),
+          :date => get_date(row["scanDate"] + " " + row["scanTime"]),
           :city => location[0],
           :state => location[1]
         )
@@ -68,7 +68,7 @@ module TrackingLib
     
     private
     def get_date(date_str)
-      DateTime.strptime(date_str, '%h %d %Y,%I:%M %p')
+      DateTime.strptime(date_str, '%h %d,%Y %I:%M %p')
     end
   end
 end
