@@ -41,13 +41,6 @@ class Package < ActiveRecord::Base
     delivered_at != nil
   end
 
-  def events
-    case Carrier.symbol_for_id(carrier_id)
-    when :usps then return usps_events
-    when :ups then return ups_events
-    when :fedex then return fedex_events
-    end
-  end
 
   def for_user_token
     u = User.find_first_by_authentication_token(params[:token])
@@ -57,27 +50,17 @@ class Package < ActiveRecord::Base
     end
   end
 
-  def update_tracking
-    
+  def update_tracking_information
+    case Carrier.symbol_for_id(carrier_id)
+    when :usps
+      t = TrackingLib::USPS.new
+    when :ups
+      t = TrackingLib::UPS.new
+    when :fedex
+      t = TrackingLib::Fedex.new
+    end
+    t.track tracking_number
   end
 
   private
-
-  def usps_events
-    t = TrackingLib::USPS.new
-    t.track self.tracking_number
-    t.events
-  end
-
-  def ups_events
-    t = TrackingLib::UPS.new
-    t.track self.tracking_number
-    t.events
-  end
-
-  def fedex_events
-    t = TrackingLib::Fedex.new
-    t.track self.tracking_number
-    t.events
-  end
 end

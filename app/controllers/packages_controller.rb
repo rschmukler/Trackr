@@ -24,11 +24,14 @@ class PackagesController < ApplicationController
     else
       flash[:alert] = 'Something dun goofed. Try again'
     end
-    
     respond_to do |f|
       f.js
     end
-      
+  end
+
+  def update_tracking
+    @package = Package.find(params[:id])
+    Resque.enqueue(Tracking, @package)
   end
   
   def destroy

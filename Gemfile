@@ -24,6 +24,8 @@ gem 'mechanize'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem "resque"
+
 group :development do
   gem 'guard-livereload'
 end
