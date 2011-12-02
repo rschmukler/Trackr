@@ -2,7 +2,7 @@ module PackageLib
   class VendorParser
   end
 
-  class Microsoft < VendorParser
+  class MicrosoftParser < VendorParser
     
     def initialize(email)
       @vendor = 'Microsoft Store'
