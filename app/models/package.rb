@@ -13,9 +13,6 @@ class Package < ActiveRecord::Base
 
   def check_update_tracking
     if self.tracking_number
-      if last_tracked_at
-        update_tracking_information if Time.now - last_tracked_at > 1.hour
-      end
       update_tracking_information
     end
   end
@@ -70,8 +67,6 @@ class Package < ActiveRecord::Base
     when :fedex
       t = TrackingLib::Fedex.new
     end
-    t.last_tracked_at = Time.now
-    t.save
     t.track tracking_number
   end
 
