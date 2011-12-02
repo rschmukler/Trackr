@@ -14,6 +14,14 @@ class Package < ActiveRecord::Base
     end
   end
 
+  def ship_date_string
+    ship_date ? ship_date.strftime("%d/%m") : 'N/A'
+  end
+
+  def estimated_delivery_date_string
+    estimated_delivery_date ? estimated_delivery_date.strftime("%d/%m") : 'N/A'
+  end
+
   def pending?
     ship_date == nil
   end
