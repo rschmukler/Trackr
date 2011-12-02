@@ -7,7 +7,6 @@ module TrackingLib
     def track(tracking_number)
       @events = []
       agent = Mechanize.new
-      agent.log = Logger.new "mech.log"
       agent.user_agent_alias = 'Mac Safari'
 
       page = agent.get "https://tools.usps.com/go/TrackConfirmAction.action"
