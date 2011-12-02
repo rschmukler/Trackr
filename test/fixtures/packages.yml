@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ship_date: 2011-12-01
+  user_id: 1
+  vendor_id: 1
+  carrier_id: 1
+  name: MyString
+
+two:
+  ship_date: 2011-12-01
+  user_id: 1
+  vendor_id: 1
+  carrier_id: 1
+  name: MyString
