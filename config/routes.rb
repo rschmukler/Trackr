@@ -1,6 +1,7 @@
 Trackr::Application.routes.draw do
 
-  get "settings/index"
+  get "settings/index" => 'settings#index'
+  post "settings/index" => 'settings#update'
 
   resources :packages
   get '/packages/for_token/:token' => 'packages#for_token'
