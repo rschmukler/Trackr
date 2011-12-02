@@ -20,6 +20,7 @@ group :production do
   gem 'pg'
 end
 
+gem 'devise'
 
 group :development do
   gem 'guard-livereload'
