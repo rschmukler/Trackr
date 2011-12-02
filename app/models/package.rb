@@ -50,7 +50,7 @@ class Package < ActiveRecord::Base
     end
   end
 
-  def update_tracking
+  def update_tracking_information
     case Carrier.symbol_for_id(carrier_id)
     when :usps
       t = TrackingLib::USPS.new
