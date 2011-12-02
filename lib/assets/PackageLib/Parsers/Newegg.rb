@@ -1,11 +1,13 @@
+require 'mechanize'
+
 module PackageLib
   class VendorParser
   end
 
-  class AmazonParser < VendorParser
+  class Newegg < VendorParser
     
     def initialize(email)
-      @vendor = 'Amazon'
+      @vendor = 'Newegg'
       super(email)
     end
     
