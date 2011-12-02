@@ -10,7 +10,7 @@ module PackageLib
     end
     
     def is_updating_an_order?
-      if(@text =~ /have shipped/)
+      if(@text =~ /\) have shipped/)
         return true
       end
       return false
