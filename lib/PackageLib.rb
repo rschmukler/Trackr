@@ -1,4 +1,5 @@
-require "#{Rails.root}/lib/assets/PackageLib/Parsers/VendorParser.rb"
+require "#{Rails.root}/lib/PackageLib/Parsers/VendorParser.rb"
+
 
 module PackageLib
   class PackageLib
