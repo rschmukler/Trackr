@@ -14,10 +14,11 @@ module TrackingLib
       tracking_form.field_with(:name => "tLabels").value = tracking_number
       results = agent.submit(tracking_form)
       results.search("#tc-hits tbody tr").each do |row|
-        location = row.search(".td-location > p").text().force_encoding('IBM437').gsub(/\xC2\xA0/, " ").gsub(/\r|\n|\t/,"").split(/, | /)
+        array = row.force_encoding('ASCII-8BIT').gsub(/\xC2\xA0/, " ").gsub(/\r|\n|\t/,"").strip().split(/   +/)
+        location = array[2].split(/ /).map{|text| text.capitalize}
         @events << {
-          :status => row.search(".td-status > p").text(),
-          :date => row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"").chomp,
+          :status => array[0],
+          :date => get_date(array[1]),
           :city => location[0],
           :state => location[1],
           :zip => location[2]
