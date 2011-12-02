@@ -3,20 +3,20 @@
 <h1>Settings</h1>
 
 <h2>API Key</h2>
-<p><%= current_user.authentication_token %></p>
+<p class="api-key"><%= current_user.authentication_token %></p>
 
 <h2>Associated Emails</h2>
 <ul class="email-confirms">
-  <%= render :partial => 'email_row', :collection => email.info, :as => :item %>
+  <%= render :partial => 'email_row', :collection => current_user.email_addresses, :as => :email %>
 </ul>
 
-<% form_for @email_address do |f|, :class => "email-confirms" -%>
+<% form_for @email_address, :class => "email-confirms" do |f| -%>
   <%= f.text_field :address %>
   <%= f.submit "Add", :disable_with => 'Adding...' %>
 <% end -%>
 
 <h2>Filters</h2>
 
-<ul>
+<ul class="filters-list">
   <li><a href="#">Gmail</a></li>
 </ul>

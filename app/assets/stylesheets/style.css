@@ -255,6 +255,10 @@ table { width: 100%; }
 }
 .entry-tools .remove-package { position: absolute; right: 24px; top: 2px; }
 
+.api-key { font-style: italic; }
+
+ul { margin-left: 15px; }
+
 @-webkit-keyframes rotate {
   from {
     -webkit-transform: rotate(0deg);

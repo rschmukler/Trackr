@@ -1,1 +1,1 @@
-<li class="<%= if email.confirmed ? "confirmed" : "unconfirmed" %><% if email.primary? %> primary<% end %>"><%= item.address %> <a class="remove" href="#">Remove</a></li>
+<li class="<%= email.confirmed ? "confirmed" : "unconfirmed" %><%= ' primary' if email.primary? %>"><%= email.address %> <a class="remove" href="#">Remove</a></li>
