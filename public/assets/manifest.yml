@@ -19,6 +19,6 @@ filters_gmail/mailFilters_gmail_tigerdirect.xml: filters_gmail/mailFilters_gmail
 filters_gmail/mailFilters_gmail_zappos.xml: filters_gmail/mailFilters_gmail_zappos-b98ba1c677362fa0b81e659dd809b7d9.xml
 filters_outlook/filter_outlook.rwz: filters_outlook/filter_outlook-26d455c3fe35914b823a37339746237a.rwz
 filters_thunderbird/trackr_thunderbird: filters_thunderbird/trackr_thunderbird
-application.css: application-243cf8cc51f29ac4e293ff2b103c18ba.css
+application.css: application-d0b210a5981155c18cab2d52a3977a0c.css
 Parsers/AmazonParser.rb: Parsers/AmazonParser-5fa3e375efbc9667713c3aead9b0f75a.rb
 Parsers/VendorParser.rb: Parsers/VendorParser-d5ae292ad10fc7994c2aacbe4e86376b.rb
