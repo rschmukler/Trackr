@@ -15,7 +15,7 @@
     <h1>Add Item</h1>
     <% form_for @package do |f| -%>
       <%= f.text_field :name %>
-      <%= f.text_field :vendor %>
+      <%= f.text_field :vendor_id %>
       <%= f.submit "Add", :disable_with => 'Adding...' %>
     <% end -%>
   </div>

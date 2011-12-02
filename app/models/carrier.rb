@@ -1,5 +1,6 @@
 class Carrier
   @@symbols = [:fedex, :ups, :usps]
+  @@strings = ["Fedex", "UPS", "USPS"]
 
   class << self
     def id_for_symbol(symbol)
@@ -7,7 +8,11 @@ class Carrier
     end
 
     def symbol_for_id(id)
-      @@symbols[id]
+      id ? @@symbols[id] : :unknown
+    end
+
+    def string_for_id(id)
+      id ? @@strings[id] : 'Unknown'
     end
   end
 end
