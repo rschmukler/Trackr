@@ -1,0 +1,10 @@
+RootFolderUri=imap://zainabg%40gmail.com@imap.googlemail.com
+mailnews.customHeaders=
+version="9"
+logging="no"
+name="Trackr"
+enabled="yes"
+type="17"
+action="Forward"
+actionValue="packages@quaere.mailgun.com"
+condition="OR (body,contains,order confirmation) OR (body,contains,shipping confirmation) OR (body,contains,tracking number)"
