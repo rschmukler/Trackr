@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width">
   <title>Quaere</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="assets/ios-icon.png">
+
+	<script>
+	  $(function() {
+	    $(".add-package").click(function() {
+	      $("#add-package-modal").slideToggle();
+	      return false;
+	    });
+	    $(".big-effing-button-wtf").click(function() {
+	      $(this).siblings(".full-info").slideToggle();
+	    });
+	    $("#filters li a").toggle(function() {
+	      $(this).addClass("down");
+	    }, function() {
+	      $(this).removeClass("down");
+	    });
+	    $(".remove-package").click(function() {
+        smoke.confirm("You are about to delete this entry", function(e) {
+          if(e) {
+            smoke.alert("Clicked OK");
+          }
+        });
+	    });
+	  });
+	</script>
 </head>
 <body>
 
