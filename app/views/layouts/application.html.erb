@@ -32,8 +32,8 @@
 	      $(".down").removeClass("down");
 	      $(this).addClass("down");
 	      $courier = $(this).attr("class");
-	      $(".entry:not(."+$courier+"):not(.blank)").slideUp();
-	      $("."+$courier).slideDown();
+	      $(".entry").slideUp();
+	      $(".entry."+$courier).slideDown();
 	    });
 	  });
 	</script>
