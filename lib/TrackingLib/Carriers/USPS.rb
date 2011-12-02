@@ -34,6 +34,7 @@ module TrackingLib
     
     private
     def get_date(date_str)
+      puts date_str
       if(date_str =~ /am|pm/)
         return Date.strptime(date_str, '%h %d, %Y, %I:%M %p')
       else
