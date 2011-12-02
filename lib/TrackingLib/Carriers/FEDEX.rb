@@ -5,23 +5,22 @@ module TrackingLib
     end
 
     def track(tracking_number)
+	  tracking_number = "874226648206"
       @events = []
       agent = Mechanize.new
       agent.user_agent_alias = 'Mac Safari'
-      page = agent.get "http://www.fedex.com/Tracking?cntry_code=us.action"
-      tracking_form = page.form_with :name => "tracking"
-      tracking_form.field_with(:name => "tLabels").value = tracking_number
-      results = agent.submit(tracking_form)
-      results.search("#tc-hits tbody tr").each do |row|
-        location = row.search(".td-location > p").text().force_encoding('IBM437').gsub!(/\xC2\xA0/, " ").gsub!(/\r|\n|\t/,"").split(/, | /)
+      page = agent.get "http://www.fedex.com/Tracking?language=english&cntry_code=us&tracknumbers=tracking_number.action"
+      page.search("#detailTravelHistory")[1..-1].each do |row|
+        row = row.search("td");
+        location = row[0].text().gsub!(/\n| |\t/, "").split(/,/)
         @events << {
-          :status => row.search(".td-status > p").text(),
-          :date => self.get_date(row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"")),
+          :status => row[3].text().gsub!(/\n| |\t/, ""),
+          :date => row[1].text().gsub!(/\n| |\t/, "")+","+row[2].text().gsub!(/\n| |\t/, ""),
           :city => location[0],
-          :state => location[1],
-          :zip => location[2]
+          :state => location[1]
         }
       end
+      
     end
     
     def status
