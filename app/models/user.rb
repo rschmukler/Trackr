@@ -34,4 +34,12 @@ class User < ActiveRecord::Base
   def claim_email_address
     EmailAddress.create!(:address => self.email, :user_id => self, :confirmed => true)
   end
+
+  def generate_auth_token
+    begin
+      auth_token = SecureRandom::hex(6)
+    end while User.find_by_authentication_token(auth_token)
+    self.authentication_token = auth_token
+    self.save
+  end
 end

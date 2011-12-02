@@ -1,6 +1,7 @@
 Trackr::Application.routes.draw do
 
   resources :packages
+  get '/packages/for_token/:token' => 'packages#for_token'
 
   devise_for :users, :controllers => {:omniauth_callbacks => 'users/omniauth_callbacks'} do
     root :to => 'packages#index'
