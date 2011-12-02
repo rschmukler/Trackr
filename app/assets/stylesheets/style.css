@@ -144,9 +144,10 @@ a.fullinfo { color: white; font-weight: bold; }
 }
 
 .entry h1 {
-  margin-top: 40px;
   line-height: 20px;
-  margin-bottom: 18px;
+  font-size: 16px;
+  float: none;
+  margin-bottom: 15px;
 }
 .entry:last-child,
 .entry:last-child .full-info {
@@ -181,9 +182,9 @@ a.fullinfo { color: white; font-weight: bold; }
 .unknown { color: black; }
 
 .meta {
-  position: absolute; top: 14px; right: 10px;
+  float: right;
   background: rgba(255,255,255,.2);
-  padding: 4px;
+  padding: 4px; margin-top: 7px;
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
@@ -308,10 +309,3 @@ a:hover { text-decoration: underline; }
 .email-confirms a { font-weight: bold; }
 .email-confirms .primary .remove { display: none; }
 form.email-confirms { margin-top: 15px; }
-
-@media screen and (max-width: 500px) {
-  #filters { padding:  0 15px; }
-  #filters li { display: block; margin: 10px 0; }
-  #login { top: 185px; }
-  #splash form { clear: both; width: 100%; }
-}
