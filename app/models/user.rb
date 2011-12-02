@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :packages
 
-  after_create :claim_email_address
+  after_create :claim_email_address, :generate_auth_token
 
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
