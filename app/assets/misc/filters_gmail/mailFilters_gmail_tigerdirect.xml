@@ -4,7 +4,7 @@
 	<updated>2011-12-01T23:15:57Z</updated>
 	<author>
 		<name>#buyer name/participation id</name>
-		<email>#buyer email id</email>
+		<email>*</email>
 	</author>
 	<entry>
 		<category term='filter'></category>

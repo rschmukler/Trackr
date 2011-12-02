@@ -10,9 +10,9 @@
   <%= render :partial => 'email_row', :collection => current_user.email_addresses, :as => :email %>
 </ul>
 
-<% form_for @email_address, :class => "email-confirms" do |f| -%>
-  <%= f.text_field :address %>
-  <%= f.submit "Add", :disable_with => 'Adding...' %>
+<%= form_for @email_address, :class => "email-confirms" do |f| -%>
+  <p><%= f.text_field :address %>
+  <%= f.submit "Add", :disable_with => 'Adding...' %></p>
 <% end -%>
 
 <h2>Filters</h2>

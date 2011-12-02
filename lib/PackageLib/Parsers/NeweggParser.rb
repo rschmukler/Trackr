@@ -4,7 +4,7 @@ module PackageLib
   class VendorParser
   end
 
-  class Newegg < VendorParser
+  class NeweggParser < VendorParser
     
     def initialize(email)
       @vendor = 'Newegg'

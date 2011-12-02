@@ -2,7 +2,7 @@ module PackageLib
   class VendorParser
   end
 
-  class Microsoft < VendorParser
+  class MicrosoftParser < VendorParser
     
     def initialize(email)
       @vendor = 'Microsoft Store'
@@ -10,7 +10,7 @@ module PackageLib
     end
     
     def is_updating_an_order?
-      if(@text =~ /have shipped/)
+      if(@text =~ /\) have shipped/)
         return true
       end
       return false

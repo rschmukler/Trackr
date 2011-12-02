@@ -1,7 +1,7 @@
 require_relative "./AmazonParser.rb"
-require_relative "./NeweggParser.rb"
+#require_relative "./NeweggParser.rb"
 require_relative "./MicrosoftParser.rb"
-require_relative "./ZapposParser.rb"
+#require_relative "./ZapposParser.rb"
 
 module PackageLib
   class VendorParser
