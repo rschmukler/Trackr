@@ -34,13 +34,13 @@ module TrackingLib
         location = row["scanLocation"].split(/, /)
         @events << {
           :status => row["scanStatus"],
-          :date => get_date(row["scanDate"] + " " + row["scanTime"]),
+          :date_time => get_date(row["scanDate"] + " " + row["scanTime"]),
           :city => location[0],
           :state => location[1]
         }
         event = Event.new(
           :status => row["scanStatus"],
-          :date => get_date(row["scanDate"] + " " + row["scanTime"]),
+          :date_time => get_date(row["scanDate"] + " " + row["scanTime"]),
           :city => location[0],
           :state => location[1]
         )
@@ -49,12 +49,12 @@ module TrackingLib
     end
     
     def update_estimated
-      @package.estimated_delivery_date = @estimated_delivery_date.to_date
+      @package.estimated_delivery_date = @estimated_delivery_date
       @package.save
     end
     
     def delivered_at
-      @package.delivered_at = @delivered_at.to_date
+      @package.delivered_at = @delivered_at
       @package.save
     end
     
