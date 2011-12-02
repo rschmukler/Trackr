@@ -9,6 +9,23 @@ module PackageLib
       @package
     end
 
+    def generate_orders
+      order_numbers = get_order_numbers
+      order_partial = @email.split(/Delivery estimate/)
+      order_numbers.each do |on|
+        email_address = @email.from_text.scan(/<[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+>/)
+        u_id = User.find_by_email_possesion(email_address)
+        if u_id
+          order = Order.new(:order_date => @email.sent_at, :vendor_id => Vender.id_for_string(@vendor), :order_number => on, :user_id => u_id)
+          if not order.save
+            #TODO: Toss an email to the user notifying them something went wrong.
+          end
+          generate_package_for_order_text(order,order_partial[i])
+          i = i + 1 #increment order partial 
+        end
+      end
+    end
+    
     def parse_text
       if(self.shipped?)
         @package.tracking_number = self.get_tracking_number

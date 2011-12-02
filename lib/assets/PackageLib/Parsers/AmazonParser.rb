@@ -1,41 +1,57 @@
 module PackageLib
   class AmazonParser < VendorParser
     
-    def is_updating_an_order?
-      #Insert some regex
+    def initialize(text)
+      @vendor = 'Amazon'
+      super(text)
     end
     
-    def generate_orders
-      order_numbers = get_order_numbers
-      order_numbers.each do |on|
-        email_address = @email.from_text #parse out stuff not in brackets
-        u_id = User.find_by_email_possesion(email_address)
-        if u_id
-          o = Order.new(:order_date => @email.sent_at, :vendor => 'Amazon', :order_number => on, :user_id => u_id)
-          generate_packages_for_order(o)
-          if not o.save
-            #TODO: Toss an email to the user notifying them something went wrong.
-          end
+    def is_updating_an_order?
+      if(@test =~ /being shipped/)
+        return true
+      end
+      return false
+    end
+    
+    def generate_package_for_order_text(order,text)
+      package = Package.new
+      package.order = order
+      items = self.get_items
+      package_name = items.map{|item| item[:name]}.join(" and ")
+      #Create a new package
+      package = Package.new(:name => package_name)
+      package.save
+      #Add items
+      items.each do |itemHashObject|
+        itemHashObject.merge!(:package_id => package.id)
+        item = Item.create!(itemHashObject)
+        item = package
+        item.save
+      end
+    end
+     
+    def update_orders
+      self.get_package_carrier
+      Order.where(:vendor => @vendor, :order_number => self.get_order_numbers.first).first.packages.each do |package|
+        unless package.items.find_by_name(name).nil?
+          package.carrier_id = Carrier.id_for_symbol(get_package_carrier)
+          package.tracking_number = get_tracking_number
+          package.save
         end
+      end
+      
+      self.get_tracking_number
+    end
+    private
+
+    def get_items(text)
+      item_strs = text.scan(/[0-9]+ \"[0-z .\-@#\/\,]*\"/)
+      item_strs.each do |item|
+        item = self.get_items.first.split(/ /) #Matches the first item with package
+        items << {:name => item.last[1,-1], :count => item.first}
       end
     end
     
-    def generate_packages_for_order(o)
-      text = text_for_order_number(o.order_number)
-      generate_packages_for_order_text(o, text)
-    end
-    
-    def text_for_order_number
-      
-    end
-    
-    def fill
-      
-    end
-
-     
-    private
-
     def get_package_carrier
       if(@text =~ /UPS/)
         return :ups
@@ -66,15 +82,15 @@ module PackageLib
     end
     
     def shipped?
-      if(@test =~ /Shipped/)
+      if(@test =~ /being shipped/)
         return true
       end
       return false
     end
     
     def get_estimated
-      return @text.scan(/(Janurary|Feburary|March|April|May|June|July|August|September|October|November|December)\s([0-9][0-9]|[0-9]), [0-9]{4}/)
-      
+      date_str = @text.scan(/(Janurary|Feburary|March|April|May|June|July|August|September|October|November|December)\s([0-9][0-9]|[0-9]), [0-9]{4}/)
+      return Date.strptime(date_str, '%h %d, %Y')
     end
   end
 end
