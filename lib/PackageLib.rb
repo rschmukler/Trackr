@@ -25,7 +25,7 @@ module PackageLib
     end
 
     def find_vendor
-      return @email.subject_text.scan(/Amazon|Newegg/).first
+      return @email.subject_text.scan(/Amazon|Newegg|Microsoft Store/).first
     end
 
     def handle_email
@@ -54,6 +54,8 @@ module PackageLib
         return AmazonParser.new(@email)
       when "Newegg"
         return NeweggParser.new(@email)
+      when "Microsoft Store"
+        return MicrosoftParser.new(@email)
       end
     end
   end
