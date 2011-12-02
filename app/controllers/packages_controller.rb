@@ -14,6 +14,11 @@ class PackagesController < ApplicationController
       respond_with @package.to_json(:include =>[:items, :events])
     end
   end
+  
+  def destroy
+    @package = Package.find(params[:id])
+    @package.destroy if @package
+  end
 
   def for_token
     u = User.where(:authentication_token => params[:token]).first
