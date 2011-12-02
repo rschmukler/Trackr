@@ -16,7 +16,7 @@ module TrackingLib
         location = row.search(".td-location > p").text().force_encoding('ASCII-8BIT').gsub!(/\xC2\xA0/, " ").gsub!(/\r|\n|\t/,"").split(/, | /)
         @events << {
           :status => row.search(".td-status > p").text(),
-          :date => self.get_date(row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"")),
+          :date => get_date(row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"")),
           :city => location[0],
           :state => location[1],
           :zip => location[2]
