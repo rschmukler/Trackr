@@ -2,8 +2,7 @@ module PackageLib
   class VendorParser
     def initialize(text)
       @text = text
-      @package = Package.new
-      @items
+      @package = Package.where(:vendor => vendor, :order_number => order_number).first || Package.new
     end
 
     def package
