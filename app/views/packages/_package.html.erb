@@ -1,20 +1,22 @@
-<section class="entry <%= Carrier.string_for_id(package.carrier_id) %> ajax">
+<section class="entry <%= Carrier.symbol_for_id(package.carrier_id) %> ajax">
   <div class="big-effing-button-wtf">
-    <h1><%= package.name[0..50] %></h1>
-    <p><%= package.name %> from <span class="vendor"><%= Vendor.string_for_id(package.vendor_id) %></span> <span class="via">via</span> <span class="shipper"><%= Carrier.string_for_id(package.carrier_id )%></span> is <span class="status"><pending><%= package.status %></span>. Ship Date: <span class="date"><%= package.ship_date%></span>. Estimated Delivery: <span class="date"><%= package.estimated_delivery_date %></span></p>
     <div class="meta">
       <ul>
-	       <li class="vendor <%= Vendor.string_for_id(package.vendor_id) %>"><%= Vendor.string_for_id(package.vendor_id) %></li>
-	       <li class="shipper <%= Carrier.string_for_id(package.carrier_id )%>"><%= Carrier.string_for_id(package.carrier_id )%></li>
+	       <li class="vendor <%= Vendor.string_for_id(package.vendor_id).downcase %>"><%= Vendor.string_for_id(package.vendor_id) %></li>
+	       <li class="shipper <%= Carrier.symbol_for_id(package.carrier_id ) %>"><%= Carrier.string_for_id(package.carrier_id )%></li>
 	      </ul>
 	      <% if package.pending? %><div class="pending">pending</div><% end %>
 	  </div>
+    <h1><%= shorten_string package.name, 65 %></h1>
+    <p>from <span class="vendor"><%= Vendor.string_for_id(package.vendor_id) %></span> <span class="via">via</span> <span class="shipper"><%= Carrier.string_for_id(package.carrier_id )%></span> is <span class="status"><pending><%= package.status %></span>. Ship Date: <span class="date"><%= package.ship_date_string %></span>. Estimated Delivery: <span class="date"><%= package.estimated_delivery_date_string %></span></p>
 	</div>
 	<div class="entry-tools">
 	  <a class="remove-package" href="#">Remove</a>
 	  <a href="#" class="refresh">Refresh</a>
 	</div>
+  <% if package.items.count > 1 or !package.pending? %>
   <div class="full-info">
+    <% if package.items.count > 1 %>
     <table class="packages-table">
       <colgroup>
         <col class="item">
@@ -26,6 +28,8 @@
       </tr>
       <%= render :partial => 'item_row', :collection => package.items, :as => :item %>
     </table>
+    <% end %>
+    <% if !package.pending? %>
     <table>
       <colgroup>
         <col class="location">
@@ -41,5 +45,7 @@
       </tr>
       <%= render :partial => 'event_row', :collection => package.events, :as => :event %>
     </table>
+    <% end %>
+    <% end %>
   </div>
 </section>
