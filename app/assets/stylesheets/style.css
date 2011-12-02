@@ -1,4 +1,9 @@
-@import url(http://fonts.googleapis.com/css?family=Corben);
+@font-face {
+  font-family: 'Corben';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Corben Regular'), local('Corben-Regular'), url('http://themes.googleusercontent.com/static/fonts/corben/v4/uWWoJk4JhWoRrYEm4mc4D-vvDin1pK8aKteLpeZ5c0A.woff') format('woff');
+}
 
 * { margin: 0; padding: 0; outline: 0; }
 

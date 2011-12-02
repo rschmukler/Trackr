@@ -9,6 +9,14 @@ class Package < ActiveRecord::Base
   
   validates :tracking_number, :uniqueness => true
 
+  after_save :check_update_tracking
+
+  def check_update_tracking
+    if self.tracking_number
+      update_tracking_information
+    end
+  end
+
 
 
   def status
