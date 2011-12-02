@@ -13,7 +13,7 @@ module TrackingLib
       tracking_form.field_with(:name => "tLabels").value = tracking_number
       results = agent.submit(tracking_form)
       results.search("#tc-hits tbody tr").each do |row|
-        location = row.search(".td-location > p").text().force_encoding('IBM437').gsub!(/\xC2\xA0/, " ").gsub!(/\r|\n|\t/,"").split(/, | /)
+        location = row.search(".td-location > p").text().force_encoding('ASCII-8BIT').gsub!(/\xC2\xA0/, " ").gsub!(/\r|\n|\t/,"").split(/, | /)
         @events << {
           :status => row.search(".td-status > p").text(),
           :date => self.get_date(row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"")),
