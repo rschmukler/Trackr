@@ -23,6 +23,16 @@ module TrackingLib
       #pp @events
     end
     
+    def update_estimated
+      @package.estimated_delivery_date = @estimated_delivery_date.to_date
+      @package.save
+    end
+    
+    def delivered_at
+      @package.delivered_at = @delivered_at.to_date
+      @package.save
+    end
+    
     def status
       @events.last.status
     end
