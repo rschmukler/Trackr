@@ -12,12 +12,12 @@ class EmailAddress < ActiveRecord::Base
   private
 
   def send_test_email
-    self.generate_token
+    generate_token
     #EmailConfirmation.confirmation_email(self).deliver
   end
 
   def generate_token
-    self.token = ActiveSupper::SecureRandom.hex(4)
+    self.token = SecureRandom::hex(4)
     self.save
   end
 end

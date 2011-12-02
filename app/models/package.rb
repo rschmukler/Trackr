@@ -1,8 +1,12 @@
+require 'TrackingLib'
+
 class Package < ActiveRecord::Base
   belongs_to :user
   belongs_to :order
   
   has_many :items
+
+
 
   def status
     if pending?
@@ -50,17 +54,27 @@ class Package < ActiveRecord::Base
     end
   end
 
+  def update_tracking
+    
+  end
+
   private
 
   def usps_events
-    events[:name] = 'TESTING'
+    t = TrackingLib::USPS.new
+    t.track self.tracking_number
+    t.events
   end
 
   def ups_events
-    
+    t = TrackingLib::UPS.new
+    t.track self.tracking_number
+    t.events
   end
 
   def fedex_events
-    
+    t = TrackingLib::Fedex.new
+    t.track self.tracking_number
+    t.events
   end
 end
