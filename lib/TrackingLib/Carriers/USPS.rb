@@ -14,7 +14,8 @@ module TrackingLib
       tracking_form.field_with(:name => "tLabels").value = tracking_number
       results = agent.submit(tracking_form)
       results.search("#tc-hits tbody tr").each do |row|
-        location = row.search(".td-location > p").text().force_encoding('IBM437').gsub(/\xC2\xA0/, " ").gsub(/\r|\n|\t/,"").split(/, | /)
+        encoding_string = Rails.env.production? ? 'IBM437' : 'ASCII-8BIT'
+        location = row.search(".td-location > p").text().force_encoding(encoding_string).gsub(/\xC2\xA0/, " ").gsub(/\r|\n|\t/,"").split(/, | /)
         @events << {
           :status => row.search(".td-status > p").text(),
           :date => row.search(".td-date-time > p").text().gsub!(/\r|\n|\t/,"").chomp,
