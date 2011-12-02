@@ -15,14 +15,36 @@ class Package < ActiveRecord::Base
   end
 
   def pending?
-    shipped_at == nil
+    ship_date == nil
   end
 
   def shipped?
-    shipped_at != nil and delivered_at == nil
+    ship_date != nil and delivered_at == nil
   end
 
   def delivered?
     delivered_at != nil
+  end
+
+  def events
+    case Carrier.symbol_for_id(carrier_id)
+    when :usps then return usps_events
+    when :ups then return ups_events
+    when :fedex then return fedex_events
+    end
+  end
+
+  private
+
+  def usps_events
+    
+  end
+
+  def ups_events
+    
+  end
+
+  def fedex_events
+    
   end
 end

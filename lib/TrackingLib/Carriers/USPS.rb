@@ -3,7 +3,7 @@ module TrackingLib
     def initalize()
       
     end
-    
+
     def track(tracking_number)
       @events = []
       agent = Mechanize.new

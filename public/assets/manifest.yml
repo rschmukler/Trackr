@@ -1,7 +1,14 @@
 ---
+bgnoise.gif: bgnoise-80ed2a3e9300e8b09999dff22f0815b0.gif
+black-linen.png: black-linen-c7dd1911149258c94d4c1438b7e30d54.png
+facebook-login.png: facebook-login-3cf092b56d051c15bd0c4d89628f0f5f.png
+icons.png: icons-9025100cfe996e88d6893ea1d5678e55.png
+ios-icon.png: ios-icon-ebae853c98fff3698c50542cddf9265f.png
+logo.png: logo-ac11cd83e62bf2533e1844062331e47d.png
+plus-big.png: plus-big-f4f6360cd10cf771cc3a3d5e2b02e982.png
+plus.png: plus-fcae1c847c4b5b721a716d65fbe2c80a.png
 rails.png: rails-e4b51606cd77fda2615e7439907bfc92.png
-application.js: application-ae30e133eabbb10d9464189d3fb71e25.js
-application.css: application-1c9609bc58b1e77c196de29021583379.css
-PackageLib.rb: PackageLib-442ca6fa10dc179143dc6fb1cec1a79f.rb
-Parsers/AmazonParser.rb: Parsers/AmazonParser-98fee28df562b193e5f9f617cc1f3823.rb
-Parsers/VendorParser.rb: Parsers/VendorParser-7ca5a5bcf81dabdd786d44da9b576d13.rb
+refresh.png: refresh-db595021eb130c83366e07f8804a2278.png
+splash-logo.png: splash-logo-f45c9fe1cfdc16c168d21f8ae7dd9d6b.png
+application.js: application-30cb39da561386b289c0001308b27572.js
+application.css: application-1eb98a5e6bbdded9daafec9f1500010b.css

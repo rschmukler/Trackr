@@ -85,6 +85,7 @@ GEM
     multipart-post (1.1.4)
     net-http-digest_auth (1.2)
     net-http-persistent (1.9)
+    nokogiri (1.5.0)
     nokogiri (1.5.0-x86-mingw32)
     oauth2 (0.5.1)
       faraday (~> 0.7.4)
@@ -166,6 +167,7 @@ DEPENDENCIES
   guard-livereload
   jquery-rails
   mechanize
+  nokogiri
   omniauth-facebook
   pg
   rails (= 3.1.1)

@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  has_many :packages
+  has_many :packages, :dependent => :delete_all
   belongs_to :user
 
   class << self
