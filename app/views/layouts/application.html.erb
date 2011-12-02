@@ -20,11 +20,6 @@
 	    $(".big-effing-button-wtf").click(function() {
 	      $(this).siblings(".full-info").slideToggle();
 	    });
-	    $("#filters li a").toggle(function() {
-	      $(this).addClass("down");
-	    }, function() {
-	      $(this).removeClass("down");
-	    });
 	    $(".remove-package").click(function() {
         smoke.confirm("You are about to delete this entry", function(e) {
           if(e) {
@@ -33,6 +28,13 @@
         });
 	    });
 	    $(".status-pending").removeClass("ajax");
+	    $("#filters li a").click(function() {
+	      $(".down").removeClass("down");
+	      $(this).addClass("down");
+	      $courier = $(this).attr("class");
+	      $(".entry:not(."+$courier+"):not(.blank)").slideUp();
+	      $("."+$courier).slideDown();
+	    });
 	  });
 	</script>
 </head>
