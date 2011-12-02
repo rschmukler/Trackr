@@ -36,7 +36,6 @@ module PackageLib
     end
      
     def update_orders
-      order_no = get_order_numbers.first
       right_order = nil
       Order.where(:vendor_id => Vendor.id_for_string(@vendor), :order_number => get_order_numbers.first).first.packages.each do |package|
         package.items.each do |item|
