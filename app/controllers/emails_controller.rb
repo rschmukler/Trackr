@@ -1,4 +1,6 @@
 class EmailsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def create
     mail = Email.new
     mail.from_text = params[:from]
