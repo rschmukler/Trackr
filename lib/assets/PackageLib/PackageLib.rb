@@ -1,10 +1,11 @@
-require 'Parsers/VendorParser.rb'
+require "#{Rails.root}/lib/assets/PackageLib/Parsers/VendorParser.rb"
+
 module PackageLib
   class PackageLib
     def initialize(email)
       #Find order first
       @email = email
-      @vendor = self.find_vendor(email.subject_text)
+      @vendor = self.find_vendor
       @parser = self.choose_parser
     end
     
@@ -23,12 +24,12 @@ module PackageLib
     end
 
     def find_vendor
-      return email.subject_text.scan(/(Amazon|Newegg)/).first
+      return @email.subject_text.scan(/Amazon|Newegg/).first
     end
-    
+
     def handle_email
       parse_orders
-      
+
     end
     
     def parse_orders
@@ -48,11 +49,10 @@ module PackageLib
     end
     def choose_parser
       case @vendor
-      when 'Amazon'
-        return AmazonParser.new(email.body_text)
-        break
-      when 'Newegg'
-        return NeweggParser.new(email.body_text)
+      when "Amazon"
+        return AmazonParser.new(@email)
+      when "Newegg"
+        return NeweggParser.new(@email)
       end
     end
   end

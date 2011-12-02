@@ -1,8 +1,10 @@
+require_relative "./AmazonParser.rb"
+
 module PackageLib
   class VendorParser
-    def initialize(text)
-      @text = text
-      @package = Package.where(:vendor => vendor, :order_number => order_number).first || Package.new
+    def initialize(email)
+      @email = email
+      @text = email.body_text
     end
 
     def package
@@ -11,12 +13,15 @@ module PackageLib
 
     def generate_orders
       order_numbers = get_order_numbers
-      order_partial = @email.split(/Delivery estimate/)
+      order_partial = @email.body_text.split(/Delivery estimate/)[1..-1]
+      puts "Order Numbers: #{order_numbers}"
+      i = 0
       order_numbers.each do |on|
-        email_address = @email.from_text.scan(/<[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+>/)
-        u_id = User.find_by_email_possesion(email_address)
-        if u_id
-          order = Order.new(:order_date => @email.sent_at, :vendor_id => Vender.id_for_string(@vendor), :order_number => on, :user_id => u_id)
+        email_address = @email.from_text.scan(/<[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+>/).first[1..-2]
+        puts email_address.class
+        @user = User.find_by_email_possesion(email_address)
+        if @user
+          order = Order.new(:order_date => @email.created_at, :vendor_id => Vendor.id_for_string(@vendor), :order_number => on, :user_id => @user.id)
           if not order.save
             #TODO: Toss an email to the user notifying them something went wrong.
           end

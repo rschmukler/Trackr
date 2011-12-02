@@ -1,27 +1,32 @@
 module PackageLib
+  class VendorParser
+  end
+
   class AmazonParser < VendorParser
     
-    def initialize(text)
+    def initialize(email)
       @vendor = 'Amazon'
-      super(text)
+      super(email)
     end
     
     def is_updating_an_order?
-      if(@test =~ /being shipped/)
+      if(@text =~ /being shipped/)
         return true
       end
       return false
     end
     
     def generate_package_for_order_text(order,text)
-      package = Package.new
-      package.order = order
-      items = self.get_items
+      items = get_items(text)
       package_name = items.map{|item| item[:name]}.join(" and ")
       #Create a new package
       package = Package.new(:name => package_name)
+      package.user = @user
+      package.order = order
+      package.vendor_id = Vendor.id_for_string(@vendor)
       package.save
       #Add items
+      puts items
       items.each do |itemHashObject|
         itemHashObject.merge!(:package_id => package.id)
         item = Item.create!(itemHashObject)
@@ -40,16 +45,20 @@ module PackageLib
         end
       end
       
-      self.get_tracking_number
+      get_tracking_number
     end
     private
 
     def get_items(text)
-      item_strs = text.scan(/[0-9]+ \"[0-z .\-@#\/\,]*\"/)
+      items =[]
+      item_strs = text.scan(/[0-9]+\n>* *\"[0-z .\-@#\/\,+]+\"|[0-9]+\"[0-z .\-@#\/\,]*\"/)
+      item_strs.map!{|item_str| item_str.gsub!(/\n>* */, " ")}
+      puts item_strs
       item_strs.each do |item|
-        item = self.get_items.first.split(/ /) #Matches the first item with package
-        items << {:name => item.last[1,-1], :count => item.first}
+        item = item.split(/ \"/) #Matches the first item with package
+        items << {:name => item.last[0..-2], :count => item.first}
       end
+     items
     end
     
     def get_package_carrier
@@ -68,10 +77,8 @@ module PackageLib
       case @vendor
       when :ups
         @tracking_number = @text.scan(/1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\\d\\d\\d ?\\d\\d\\d\\d ?\\d\\d\\d/)
-        break
       when :fedex
         @tracking_number = @text.scan(/(\b96\d{20}\b)|(\b\d{15}\b)|(\b\d{12}\b)/)
-        break
       when :usps
         @tracking_number = @text.scan(/\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/)
       end
