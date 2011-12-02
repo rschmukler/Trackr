@@ -1,12 +1,17 @@
 Trackr::Application.routes.draw do
 
-  get "settings/index"
+  get "settings/index" => 'settings#index'
+  post "settings/index" => 'settings#update'
 
   resources :packages
   get '/packages/for_token/:token' => 'packages#for_token'
 
   devise_for :users, :controllers => {:omniauth_callbacks => 'users/omniauth_callbacks'} do
     root :to => 'packages#index'
+  end
+
+  devise_scope :user do
+    get '/sign_in' => 'site#index', :as => :new_user_session
   end
   get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
 

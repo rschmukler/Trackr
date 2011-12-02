@@ -1,2 +1,22 @@
-<h1>Settings#index</h1>
-<p>Find me in app/views/settings/index.html.erb</p>
+<h1><%= link_to "Quære", root_path, :id => "logo" %></h1>
+
+<h1>Settings</h1>
+
+<h2>API Key</h2>
+<p><%= current_user.authentication_token %></p>
+
+<h2>Associated Emails</h2>
+<ul class="email-confirms">
+  <%= render :partial => 'email_row', :collection => email.info, :as => :item %>
+</ul>
+
+<% form_for @email_address do |f|, :class => "email-confirms" -%>
+  <%= f.text_field :address %>
+  <%= f.submit "Add", :disable_with => 'Adding...' %>
+<% end -%>
+
+<h2>Filters</h2>
+
+<ul>
+  <li><a href="#">Gmail</a></li>
+</ul>
