@@ -13,10 +13,11 @@
   </div>
   <div id="add-package-modal">
     <h1>Add Item</h1>
-    <%= form_for @package do |f| -%>
+    <%= form_for @package, :remote => true do |f| -%>
       <p><%= f.text_field :name %> <%= f.label :name, "Name" %></p>
       <p><%= f.text_field :tracking_number %> <%= f.label :tracking_number, "Tracking Number" %></p>
-      <p><%= f.select :vendor_id, Vendor.vendors_array %>
+      <p><%= f.select :vendor_id, Vendor.vendors_array %></p>
+      <p><%= f.select :carrier_id, Carrier.carriers_array %></p>
       <p><%= f.submit "Add", :disable_with => 'Adding...' %></p>
     <% end -%>
   </div>

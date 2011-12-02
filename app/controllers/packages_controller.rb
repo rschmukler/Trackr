@@ -15,6 +15,22 @@ class PackagesController < ApplicationController
     end
   end
   
+  def create
+    @package = Package.new(params[:package])
+    @package.user = current_user
+    if @package.save
+      @success = true
+      flash[:notice] = 'Package successfully added'
+    else
+      flash[:alert] = 'Something dun goofed. Try again'
+    end
+    
+    respond_to do |f|
+      f.js
+    end
+      
+  end
+  
   def destroy
     @package = Package.find(params[:id])
     @package.destroy if @package

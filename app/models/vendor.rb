@@ -3,19 +3,16 @@ class Vendor
 
   class << self
     def string_for_id(id)
-      @@vendors[id - 1]
+      @@vendors[id]
     end
     
     def vendors
       @@vendors
     end
     
-    def vendor_ids
-      @@vendors = [1, 2, 3]
-    end
-    
+
     def vendors_array
-      index = 1
+      index = 0
       to_return = []
       @@vendors.each do |val|
         to_return << [val, index]
@@ -24,7 +21,7 @@ class Vendor
     end
 
     def id_for_string(string)
-      @@vendors.index(string) + 1
+      @@vendors.index(string)
     end
   end
 end
