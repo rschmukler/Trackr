@@ -20,7 +20,7 @@ module TrackingLib
           :state => location[1]
         }
       end
-      pp @events
+      #pp @events
     end
     
     def status
