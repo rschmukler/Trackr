@@ -13,7 +13,7 @@ class Package < ActiveRecord::Base
 
   def check_update_tracking
     if self.tracking_number
-      update_tracking_information
+      update_tracking_information if Time.now - self.updated_at > 1.hour
     end
   end
 
