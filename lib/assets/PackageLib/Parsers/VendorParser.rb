@@ -10,7 +10,7 @@ module PackageLib
     end
 
     def parse_text
-      if(self.is_shipped)
+      if(self.shipped?)
         @package.tracking_number = self.get_tracking_number
         @package.carrier = self.get_package_carrier
       end

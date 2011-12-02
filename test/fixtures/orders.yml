@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order_date: 2011-12-01
+  order_number: MyString
+  user_id: 1
+  vendor: MyString
+
+two:
+  order_date: 2011-12-01
+  order_number: MyString
+  user_id: 1
+  vendor: MyString
