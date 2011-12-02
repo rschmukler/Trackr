@@ -91,7 +91,7 @@ module PackageLib
       if(@text =~ /USPS/)
         return :usps
       end
-      if(@text =~ /Fedex/)
+      if(@text =~ /FedEx/)
         return :fedex
       end
     end
