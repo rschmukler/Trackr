@@ -14,5 +14,15 @@ class Carrier
     def string_for_id(id)
       id ? @@strings[id] : 'Unknown'
     end
+    
+    def carriers_array
+      index = 0
+      to_return = []
+      @@strings.each do |string|
+        to_return << [string, index]
+        index +=1
+      end
+      to_return
+    end
   end
 end
