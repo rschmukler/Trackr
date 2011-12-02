@@ -1,6 +1,6 @@
 <tr>
   <td><%= event.location %></td>
   <td><%= event.date_time.strftime("%m/%d") %></td>
-  <td><%= event.time %></td>
+  <td><%= event.date_time.strftime("%I:%M") %></td>
   <td><%= event.status %></td>
 </tr>
