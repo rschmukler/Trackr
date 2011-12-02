@@ -1,5 +1,7 @@
 Trackr::Application.routes.draw do
 
+  get "settings/index"
+
   resources :packages
   get '/packages/for_token/:token' => 'packages#for_token'
 
