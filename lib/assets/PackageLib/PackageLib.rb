@@ -16,6 +16,10 @@ module PackageLib
 
 
     def choose_parser
+      #Code to check vendor
+      if(@package.vendor)
+        
+      end
       case @vendor
       when 'Amazon'
         return AmazonParser.new(email.body_text)
