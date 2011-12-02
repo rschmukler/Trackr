@@ -37,17 +37,18 @@ module PackageLib
      
     def update_orders
       order_no = get_order_numbers.first
-      right_order = false
+      right_order = nil
       Order.where(:vendor_id => Vendor.id_for_string(@vendor), :order_number => get_order_numbers.first).first.packages.each do |package|
         package.items.each do |item|
-          right_order = true if not @text.scan(item.name).empty?
+          right_order = package if not @text.scan(item.name).empty?
         end
       end
 
       if right_order
-        package.carrier_id = Carrier.id_for_symbol(get_package_carrier)
-        package.tracking_number = get_tracking_number
-        package.save
+        right_order.carrier_id = Carrier.id_for_symbol(get_package_carrier)
+        tn = get_tracking_number
+        right_order.tracking_number = tn.first
+        right_order.save
       end
 
     end
@@ -78,14 +79,15 @@ module PackageLib
     end
     
     def get_tracking_number
-      case @vendor
+      case get_package_carrier
       when :ups
-        @tracking_number = @text.scan(/1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\\d\\d\\d ?\\d\\d\\d\\d ?\\d\\d\\d/)
+        tracking_number = @text.scan(/1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\\d\\d\\d ?\\d\\d\\d\\d ?\\d\\d\\d/)
       when :fedex
-        @tracking_number = @text.scan(/(\b96\d{20}\b)|(\b\d{15}\b)|(\b\d{12}\b)/)
+        tracking_number = @text.scan(/(\b96\d{20}\b)|(\b\d{15}\b)|(\b\d{12}\b)/)
       when :usps
-        @tracking_number = @text.scan(/\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/)
+        tracking_number = @text.scan(/\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/)
       end
+      tracking_number
     end
     
     def get_order_numbers
