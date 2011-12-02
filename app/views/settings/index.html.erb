@@ -1,0 +1,22 @@
+<h1><%= link_to "Quære", root_path, :id => "logo" %></h1>
+
+<h1>Settings</h1>
+
+<h2>API Key</h2>
+<p class="api-key"><%= current_user.authentication_token %></p>
+
+<h2>Associated Emails</h2>
+<ul class="email-confirms">
+  <%= render :partial => 'email_row', :collection => current_user.email_addresses, :as => :email %>
+</ul>
+
+<%= form_for @email_address, :class => "email-confirms" do |f| -%>
+  <p><%= f.text_field :address %>
+  <%= f.submit "Add", :disable_with => 'Adding...' %></p>
+<% end -%>
+
+<h2>Filters</h2>
+
+<ul class="filters-list">
+  <li><a href="#">Gmail</a></li>
+</ul>

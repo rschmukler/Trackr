@@ -4,7 +4,10 @@ class EmailAddress < ActiveRecord::Base
   validates :address, :presence => true, :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
 
   after_create :send_test_email, :unless => Proc.new{ self.confirmed == true }
-
+  
+  def primary?
+    user.email == self.address
+  end
 
   private
 

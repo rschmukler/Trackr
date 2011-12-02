@@ -2,10 +2,10 @@ module PackageLib
   class VendorParser
   end
 
-  class AmazonParser < VendorParser
+  class Zappos < VendorParser
     
     def initialize(email)
-      @vendor = 'Amazon'
+      @vendor = 'Zappos'
       super(email)
     end
     

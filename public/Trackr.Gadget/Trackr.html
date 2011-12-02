@@ -1,0 +1,60 @@
+	<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=Unicode" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<style type="text/css">
+		body{
+			margin:0;
+			width:230px;
+			height:230px;
+			font-family: Georgia;
+			background-color: #DFDFDF;
+			}
+			#gadgetContainer{
+				margin-top:10px;
+				margin-left:5px;
+				width:230x;
+				height:230px;
+				overflow:scroll;
+			}
+			img{display:none}
+			.rssxpreschannel{width:310px; font-family: Georgia;}
+			.rssxpresschdesc{font-size:30px;}
+			.rssxpresschtitle{font-size:30px;}
+			.rssxpressittitle{font-size:30px;}
+			.rssxpressitdesc{font-size:30px;}
+			</style>
+			<script type="text/javscript">
+				$(document).ready(function(){
+					//System.Gadget.Settings.read(appID)
+					$("#login-btn").on("click", function(){
+						System.Gadget.Settings.writeString('appID', $("#key").val());
+						$("#key2").val(System.Gadget.Settings.read('appID'));
+					});
+				});
+				
+				
+			</script>
+		</head>
+		<body>
+		 <div id=:"gadgetContainer">
+		<b>Quaere login</b>
+		<p>
+		  <label for="username">Enter Quaere Key:</label>
+		  <br />
+		  
+		  <input type="text" id="key2" name="user_key" class="text" size="20" />
+		  <input type="text" id="key" name="user_key" class="text" size="20" />
+		</p>
+		<p>
+		  <button id="login-btn" type="submit" class="button positive" />
+		   <img alt="ok" src=
+		   "http://www.blueprintcss.org/blueprint/plugins/buttons/icons/tick.png" /> 
+		   Login
+		  </button>
+		</p>
+	
+		</div>
+	</body>
+</html>
+		

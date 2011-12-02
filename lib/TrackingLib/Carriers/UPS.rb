@@ -5,7 +5,7 @@ module TrackingLib
     end
 
     def track(tracking_number)
-      tracking_number = "1Z2080X00308970279"
+      #tracking_number = "1Z2080X00308970279"
       @events = []
       agent = Mechanize.new
       agent.user_agent_alias = 'Mac Safari'
@@ -15,12 +15,12 @@ module TrackingLib
         location = row[0].text().gsub!(/\n| |\t/, "").split(/,/)
         @events << {
           :status => row[3].text().gsub!(/\n| |\t/, ""),
-          :date => row[1].text().gsub!(/\n| |\t/, "")+","+row[2].text().gsub!(/\n| |\t/, ""),
+          :date => get_date(row[1].text().gsub!(/\n| |\t/, "")+","+row[2].text().gsub!(/\n| |\t/, "")),
           :city => location[0],
           :state => location[1]
         }
       end
-      pp @events
+      #pp @events
     end
     
     def status

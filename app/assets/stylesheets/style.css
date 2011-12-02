@@ -31,6 +31,7 @@ body {
   text-indent: -10000px;
   margin-bottom: 30px;
 }
+#logo:active { position: relative; top: 1px; }
 .splash #logo { background: none; width: auto; height: auto; margin: 0 auto; margin: 30px 0; text-indent: 0; }
 .splash #logo img { width: 100%; }
 
@@ -159,7 +160,7 @@ a.fullinfo { color: white; font-weight: bold; }
   border-bottom-left-radius: 20px;
 }
 .big-effing-button-wtf {
-  padding: 10px 20px 20px;
+  padding: 10px 14px 20px;
   cursor: hand; cursor: pointer;
   position: relative;
 }
@@ -254,6 +255,10 @@ table { width: 100%; }
   position: absolute; bottom: 5px; right: 10px;
 }
 .entry-tools .remove-package { position: absolute; right: 24px; top: 2px; }
+
+.api-key { font-style: italic; }
+
+.filters-list { margin-left: 15px; }
 
 @-webkit-keyframes rotate {
   from {

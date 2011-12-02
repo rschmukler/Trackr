@@ -1,22 +1,22 @@
 <h1><%= link_to "Quære", root_path, :id => "logo" %></h1>
 
 <ul id="filters">
-  <li><a href="#">Fedex</a></li>
-  <li><a href="#">UPS</a></li>
-  <li><a href="#">USPS</a></li>
+  <li><a class="fedex" href="#">Fedex</a></li>
+  <li><a class="ups" href="#">UPS</a></li>
+  <li><a class="usps" href="#">USPS</a></li>
 </ul>
 
 <div id="main">
   <div id="main-controls">
     <a class="add-package" href="#">Add</a>
-    <a class="settings" href="#">Settings</a>
+    <%= link_to "Settings", settings_path, :class => 'settings' %>
   </div>
   <div id="add-package-modal">
     <h1>Add Item</h1>
-    <% form_for @package do |f| -%>
-      <%= f.text_field :name %>
-      <%= f.text_field :vendor_id %>
-      <%= f.submit "Add", :disable_with => 'Adding...' %>
+    <%= form_for @package do |f| -%>
+      <p><%= f.text_field :name %> <%= f.label :name, "Name" %></p>
+      <p><%= f.text_field :vendor_id %> <%= f.label :vendor_id, "Vendor" %></p>
+      <p><%= f.submit "Add", :disable_with => 'Adding...' %></p>
     <% end -%>
   </div>
   <%= render @packages %>
