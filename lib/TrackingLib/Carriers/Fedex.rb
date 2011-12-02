@@ -44,6 +44,7 @@ module TrackingLib
           :city => location[0],
           :state => location[1]
         )
+        event.package = @package
         event.save
       end
     end

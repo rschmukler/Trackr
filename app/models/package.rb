@@ -30,7 +30,7 @@ class Package < ActiveRecord::Base
   end
 
   def pending?
-    ship_date == nil
+    ship_date == nil && delivered_at == nil
   end
 
   def shipped?
