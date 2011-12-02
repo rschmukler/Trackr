@@ -20,8 +20,15 @@ class User < ActiveRecord::Base
     if user = User.find_by_email(data.email)
       user
     else # Create a user with a stub password. 
-      User.create!(:email => data.email, :encrypted_password => Devise.friendly_token[0,20]) 
+      token = Devise.friendly_token[0,20] 
+      User.create!(:email => data.email, :password => token, :password_confirmation => token) 
     end
+  end
+
+  def self.find_by_email_possesion(address)
+    found = EmailAddress.where(:address => address, :confirmed => true).first
+    return User.find(found.id) if found
+    return nil
   end
 
   def claim_email_address
