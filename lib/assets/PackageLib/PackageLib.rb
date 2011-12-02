@@ -1,5 +1,4 @@
 require 'Parsers/VendorParser.rb'
-require 'Order.rb'
 module PackageLib
   class PackageLib
     def initialize(email)
