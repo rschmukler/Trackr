@@ -58,7 +58,7 @@ module PackageLib
       right_order = nil
       Order.where(:vendor_id => Vendor.id_for_string(@vendor), :order_number => get_order_numbers.first).first.packages.each do |package|
         package.items.each do |item|
-          right_order = package if not @text.scan(item.name).empty?
+          right_order = package if not @text.scan(item.name[0..25]).empty?
         end
       end
 
@@ -74,7 +74,7 @@ module PackageLib
 
     def get_items(text)
       items =[]
-      item_strs = text.scan(/[0-9]+\n.*\"[0-z .\-@#\/\,+]+|[0-9]+\"[0-z .\-@#\/\,]*/)
+      item_strs = text.scan(/[0-9]+\n.*\"[0-z .\-@#\/\,+]+|[0-9]+ \"[0-z .\-@#\/\,+]+/)
       item_strs.map!{|item_str| item_str.gsub!(/\n.*\"/, " \"")}
       puts item_strs
       item_strs.each do |item|
