@@ -1,5 +1,5 @@
 module TrackingLib
-  class UPS
+  class Fedex
     def initalize()
       
     end
@@ -11,18 +11,17 @@ module TrackingLib
       agent.user_agent_alias = 'Mac Safari'
 
       page = agent.get "http://www.fedex.com/Tracking/Detail?ftc_start_url=&backTo=&totalPieceNum=&cntry_code=us&pieceNum=&language=english&template_type=print&selectedTimeZone=localScanTime&trackNum=" + tracking_number
-      JSON.parse(page.body.scan(/detailInfoObject = .*;/).first[19..-2])
-      page.search("form[name='sortForm'] div.tableContentsRows > div").each do |row|
-        row = row.search("div");
-        location = row[0].text().gsub!(/\n| |\t/, "").split(/,/)
+      track_json = JSON(page.body.scan(/detailInfoObject = .*;/).first[19..-2])
+      track_json["scans"].each do |row|
+        location = row["scanLocation"].split(/, /)
         @events << {
-          :status => row[3].text().gsub!(/\n| |\t/, ""),
-          :date => get_date(row[1].text().gsub!(/\n| |\t/, "")+","+row[2].text().gsub!(/\n| |\t/, "")),
+          :status => row["scanStatus"],
+          :date => get_date(row["scanDate"] + "," + row["scanTime"]),
           :city => location[0],
           :state => location[1]
         }
       end
-      #pp @events
+      pp @events
     end
     
     def status
@@ -35,7 +34,7 @@ module TrackingLib
     
     private
     def get_date(date_str)
-      DateTime.strptime(date_str, '%m/%d/%Y,%I:%M%p')
+      DateTime.strptime(date_str, '%h %d %Y,%I:%M %p')
     end
   end
 end
