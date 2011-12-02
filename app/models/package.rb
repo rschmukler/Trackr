@@ -14,7 +14,7 @@ class Package < ActiveRecord::Base
   def status
     if pending?
       return "Pending"
-    elsif shipped
+    elsif shipped?
       return "Shipped"
     else
       return "Delivered"
