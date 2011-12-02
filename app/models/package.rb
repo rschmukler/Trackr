@@ -5,6 +5,9 @@ class Package < ActiveRecord::Base
   belongs_to :order
   
   has_many :items
+  has_many :events
+  
+  validates :tracking_number, :uniqueness => true
 
 
 
