@@ -2,11 +2,13 @@ module PackageLib
   class VendorParser
   end
 
-  class Zappos < VendorParser
+  class ZapposParser < VendorParser
     
     def initialize(email)
       @vendor = 'Zappos'
       super(email)
+      #Strip extra stuff of body
+      @email.body_text.gsub!(/<.*\n.*\n.*>|<.*\n.*>|\[image:\n.*\]|\[image:.*\]|\[image:.*\n.*\]/,"")
     end
     
     def is_updating_an_order?
@@ -18,7 +20,7 @@ module PackageLib
     
     def generate_orders
       order_numbers = get_order_numbers
-      order_partial = @email.body_text.split(/Delivery estimate/)[1..-1]
+      order_partial = @email.body_text.split(/Order Reference Number:/)[1..-1]
       i = 0
       order_numbers.each do |on|
         email_address = @email.from_text.scan(/<[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+>/).first[1..-2]
@@ -74,12 +76,12 @@ module PackageLib
 
     def get_items(text)
       items =[]
-      item_strs = text.scan(/[0-9]+\n>* *\"[0-z .\-@#\/\,+]+\"|[0-9]+\"[0-z .\-@#\/\,]*\"/)
-      item_strs.map!{|item_str| item_str.gsub!(/\n>* */, " ")}
+      item_strs = text.scan(/mary:.*\n.*\n.*\n.*\nSKU|mary:.*\n.*\n.*\nSKU/)
+      item_strs.map!{|item_str| item_str.gsub!(/\n/, " ")}
       puts item_strs
       item_strs.each do |item|
         item = item.split(/ \"/) #Matches the first item with package
-        items << {:name => item.last[0..-2], :count => item.first}
+        items << {:name => item.last[0..-2], :count => 1}
       end
      items
     end
@@ -109,11 +111,11 @@ module PackageLib
     end
     
     def get_order_numbers
-      return @text.scan(/[0-9]{3}-[0-9]{7}-[0-9]{7}/)
+      return @text.scan(/[0-9]{9}/)
     end
     
     def shipped?
-      if(@test =~ /being shipped/)
+      if(@test =~ /shipped\. YAY/)
         return true
       end
       return false
